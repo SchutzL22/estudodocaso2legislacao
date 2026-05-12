@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MP · SafeCloud — Guia de Debate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #151820;
+    --surface2: #1c2030;
+    --border: #2a3048;
+    --accent: #e8b84b;
+    --accent2: #c0392b;
+    --accent3: #2ecc71;
+    --text: #e8eaf0;
+    --muted: #8891aa;
+    --stamp: #e8b84b22;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--surface);
+    border-bottom: 2px solid var(--accent);
+    padding: 0 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-height: 56px;
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 900;
+    color: var(--accent);
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+
+  .logo span { color: var(--text); }
+
+  nav {
+    display: flex;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+    margin-left: auto;
+  }
+
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'IBM Plex Mono', monospace;
+    padding: 0.3rem 0.55rem;
+    border-radius: 4px;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+  }
+
+  nav a:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 5rem 1.5rem 4rem;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .hero::before {
+    content: "MINISTÉRIO PÚBLICO";
+    position: absolute;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 10vw, 7rem);
+    font-weight: 900;
+    color: var(--stamp);
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: 0.05em;
+  }
+
+  .case-tag {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.25rem 0.7rem;
+    border-radius: 3px;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 6vw, 3.8rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  h1 em { color: var(--accent); font-style: normal; }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 620px;
+    margin-bottom: 2.5rem;
+  }
+
+  .vs-chips {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .chip {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    padding: 0.35rem 0.8rem;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  .chip.bad { border-color: var(--accent2); color: #e74c3c; }
+  .chip.good { border-color: var(--accent3); color: var(--accent3); }
+
+  .vs { color: var(--accent); font-weight: 700; font-size: 0.85rem; }
+
+  /* ── SECTIONS ── */
+  section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+  }
+
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    margin-bottom: 1.5rem;
+    color: var(--text);
+  }
+
+  /* ── INTRO CARDS ── */
+  .intro-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .intro-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .intro-card::before {
+    content: attr(data-icon);
+    position: absolute;
+    top: -0.5rem;
+    right: 0.5rem;
+    font-size: 4rem;
+    opacity: 0.07;
+  }
+
+  .intro-card h3 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .intro-card p { font-size: 0.9rem; color: var(--text); line-height: 1.55; }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    position: relative;
+    padding-left: 1.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent), var(--accent2));
+  }
+
+  .tl-item {
+    position: relative;
+    margin-bottom: 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+  }
+
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -1.45rem;
+    top: 1.1rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+  }
+
+  .tl-item.bad::before { background: var(--accent2); }
+
+  .tl-date {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-bottom: 0.3rem;
+  }
+
+  .tl-item h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem; }
+  .tl-item p { font-size: 0.85rem; color: var(--muted); }
+
+  /* ── LAW PILLS ── */
+  .law-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .law-pill {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 6px;
+    padding: 0.8rem 1rem;
+  }
+
+  .law-pill .art {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  .law-pill p { font-size: 0.82rem; color: var(--text); }
+
+  /* ── MEMBER CARDS ── */
+  .members-grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .member-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color 0.25s, transform 0.2s;
+  }
+
+  .member-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .member-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .member-num {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #000;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .member-info h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .member-info .role {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .member-toggle {
+    margin-left: auto;
+    font-size: 1.2rem;
+    color: var(--muted);
+    transition: transform 0.25s;
+  }
+
+  .member-card.open .member-toggle { transform: rotate(180deg); }
+
+  .member-body {
+    display: none;
+    padding: 0 1.25rem 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .member-card.open .member-body { display: block; }
+
+  .member-body .tema {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin: 0.75rem 0 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .speech-box {
+    background: var(--surface2);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    padding: 1rem;
+    margin: 0.75rem 0 1rem;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--text);
+    line-height: 1.6;
+    position: relative;
+  }
+
+  .speech-box::before {
+    content: '"';
+    position: absolute;
+    top: -0.5rem;
+    left: 0.75rem;
+    font-size: 3rem;
+    color: var(--accent);
+    opacity: 0.3;
+    font-family: 'Playfair Display', serif;
+    line-height: 1;
+  }
+
+  .args-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .args-list li {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.88rem;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .args-list li::before { content: '→'; color: var(--accent); flex-shrink: 0; }
+  .args-list li:last-child { border-bottom: none; }
+
+  .law-refs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.75rem;
+  }
+
+  .law-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    background: var(--stamp);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+  }
+
+  /* ── COUNTER-ARGS ── */
+  .counter-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .counter-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .counter-def {
+    background: var(--accent2);
+    padding: 0.6rem 1rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .counter-mp {
+    padding: 0.75rem 1rem;
+    font-size: 0.88rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .counter-mp::before {
+    content: 'MP ›';
+    color: var(--accent3);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+    margin-top: 0.1rem;
+  }
+
+  /* ── QUESTIONS ── */
+  .q-grid {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .q-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent3);
+    border-radius: 0 8px 8px 0;
+    padding: 0.85rem 1rem;
+    font-size: 0.9rem;
+    display: flex;
+    gap: 0.6rem;
+  }
+
+  .q-item::before {
+    content: '?';
+    color: var(--accent3);
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  /* ── DIVIDER ── */
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0 1.5rem;
+  }
+
+  /* ── GROUP TABS ── */
+  .tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+  }
+
+  .tab {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.4rem 1rem;
+    border-radius: 6px 6px 0 0;
+    border: 1px solid transparent;
+    cursor: pointer;
+    color: var(--muted);
+    background: none;
+    transition: all 0.2s;
+  }
+
+  .tab.active {
+    color: var(--accent);
+    border-color: var(--border);
+    border-bottom-color: var(--bg);
+    background: var(--surface);
+  }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+  }
+
+  /* ── BADGE ── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    font-weight: 600;
+  }
+
+  .badge.red { background: #c0392b22; color: #e74c3c; border: 1px solid #c0392b55; }
+  .badge.green { background: #27ae6022; color: #2ecc71; border: 1px solid #27ae6055; }
+  .badge.yellow { background: #e8b84b22; color: var(--accent); border: 1px solid #e8b84b55; }
+
+  /* responsive */
+  @media (max-width: 600px) {
+    nav a { font-size: 0.68rem; padding: 0.25rem 0.4rem; }
+    .logo { font-size: 0.85rem; }
+    .tab { font-size: 0.7rem; padding: 0.35rem 0.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">MP <span>·</span> SafeCloud</div>
+  <nav>
+    <a href="#intro">Caso</a>
+    <a href="#leis">Leis</a>
+    <a href="#equipe">Equipe</a>
+    <a href="#contra">Contra-args</a>
+    <a href="#perguntas">Perguntas</a>
+  </nav>
+</header>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="case-tag">ADS · 3ª Fase · Direito do Consumidor</div>
+  <h1>Ministério Público<br>vs. <em>SafeCloud Tech</em></h1>
+  <p class="hero-sub">Guia de debate para a equipe do MP. Bug no ICMS, vazamento de dados e publicidade enganosa — tudo que você precisa para o debate, na palma da mão.</p>
+  <div class="vs-chips">
+    <span class="chip bad">Vício do Serviço</span>
+    <span class="vs">+</span>
+    <span class="chip bad">Fato do Serviço</span>
+    <span class="vs">+</span>
+    <span class="chip bad">Publicidade Enganosa</span>
+    <span class="vs">=</span>
+    <span class="chip good">Responsabilidade Objetiva</span>
+  </div>
+</div>
+
+<hr>
+
+<!-- ── INTRO ── -->
+<section id="intro">
+  <div class="section-label">01 — O Caso</div>
+  <h2>O que aconteceu?</h2>
+
+  <div class="intro-grid">
+    <div class="intro-card" data-icon="🐛">
+      <h3>O Vício (Bug no ICMS)</h3>
+      <p>Em janeiro de 2024, a SafeCloud lançou atualização com bug que calculava ICMS com alíquota menor que a devida. Levou <strong>45 dias</strong> para corrigir. A Padaria teve de contratar contador extra, gerando custos adicionais.</p>
+    </div>
+    <div class="intro-card" data-icon="🔓">
+      <h3>O Fato (Vazamento de Dados)</h3>
+      <p>A atualização abriu brecha de segurança crítica. A <strong>diretoria soube e ocultou</strong> para não perder clientes. Dois dias depois, hackers invadiram e vazaram CPFs e dados bancários de todos os clientes da Padaria.</p>
+    </div>
+    <div class="intro-card" data-icon="📢">
+      <h3>A Publicidade Enganosa</h3>
+      <p>O site da SafeCloud prometia <em>"Segurança Nível Bancário: Blindagem Total contra Invasões"</em>. Na prática, usavam apenas proteção básica de baixo custo, sem criptografia de ponta.</p>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top:2rem">Linha do tempo</div>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-date">Janeiro 2024</div>
+      <h4>Atualização lançada</h4>
+      <p>SafeCloud promete "Automação Fiscal Total". Sistema entra no ar com dois problemas críticos internos.</p>
+    </div>
+    <div class="tl-item bad">
+      <div class="tl-date">Semana 1</div>
+      <h4>Bug no ICMS detectado</h4>
+      <p>Padaria Delícia notifica suporte. SafeCloud admite a falha mas não tem patch imediato.</p>
+    </div>
+    <div class="tl-item bad">
+      <div class="tl-date">Dias seguintes</div>
+      <h4>Brecha de segurança descoberta internamente</h4>
+      <p>Diretoria decide <strong>ocultar</strong> a vulnerabilidade dos clientes para "não gerar pânico".</p>
+    </div>
+    <div class="tl-item bad">
+      <div class="tl-date">2 dias após a descoberta</div>
+      <h4>Ataque hacker — Vazamento de dados</h4>
+      <p>CPFs e dados bancários dos clientes da Padaria são expostos. Dano concreto e irreversível à privacidade.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Dia 45</div>
+      <h4>Patch do bug ICMS liberado</h4>
+      <p>Tarde demais: prejuízo com contador extra já consolidado. Dados já vazados.</p>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- ── LEIS ── -->
+<section id="leis">
+  <div class="section-label">02 — Fundamentos Jurídicos</div>
+  <h2>Base Legal Essencial</h2>
+
+  <div class="law-grid">
+    <div class="law-pill">
+      <div class="art">Art. 2º CDC</div>
+      <p>Define <strong>consumidor</strong>: pessoa física ou jurídica que usa serviço como destinatário final.</p>
+    </div>
+    <div class="law-pill">
+      <div class="art">Art. 3º CDC</div>
+      <p>Define <strong>fornecedor</strong>: quem oferece produto ou serviço no mercado de forma habitual.</p>
+    </div>
+    <div class="law-pill">
+      <div class="art">Art. 4º, I CDC</div>
+      <p>Reconhece a <strong>vulnerabilidade do consumidor</strong> como princípio fundamental da relação de consumo.</p>
+    </div>
+    <div class="law-pill">
+      <div class="art">Art. 6º, III CDC</div>
+      <p>Direito do consumidor à <strong>informação clara, adequada e transparente</strong> sobre produtos e serviços.</p>
+    </div>
+    <div class="law-pill">
+      <div class="art">Art. 14 CDC</div>
+      <p><strong>Fato do serviço</strong> — responsabilidade objetiva independentemente de culpa pelo dano causado.</p>
+    </div>
+    <div class="law-pill">
+      <div class="art">Art. 20 CDC</div>
+      <p><strong>Vício do serviço</strong> — serviço impróprio ou de valor diminuído. Fornecedor deve corrigir ou indenizar.</p>
+    </div>
+    <div class="law-pill">
+      <div class="art">Art. 37 CDC</div>
+      <p>Proíbe <strong>publicidade enganosa</strong>: qualquer informação falsa que induza o consumidor ao erro.</p>
+    </div>
+    <div class="law-pill">
+      <div class="art">Art. 62 CDC</div>
+      <p>Crime: colocar no mercado serviço que sabe ser <strong>impróprio ao consumo</strong>. Pena: detenção.</p>
+    </div>
+    <div class="law-pill">
+      <div class="art">Art. 67 CDC</div>
+      <p>Crime de <strong>publicidade enganosa</strong>: fazer ou promover publicidade que sabe ser falsa. Pena: detenção 3 meses–1 ano.</p>
+    </div>
+    <div class="law-pill">
+      <div class="art">LGPD – Art. 46</div>
+      <p>Obrigação de adotar <strong>medidas técnicas de segurança</strong> para proteger dados pessoais.</p>
+    </div>
+    <div class="law-pill">
+      <div class="art">LGPD – Art. 48</div>
+      <p><strong>Dever de comunicar incidentes</strong> de segurança à autoridade e aos titulares afetados.</p>
+    </div>
+    <div class="law-pill">
+      <div class="art">STJ – REsp 1.195.642</div>
+      <p><strong>Teoria Finalista Mitigada</strong>: PJ pode ser consumidora quando vulnerável tecnicamente (sem expertise na área).</p>
+    </div>
+  </div>
+
+  <div style="margin-top:1.5rem; background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--accent3); border-radius:0 8px 8px 0; padding:1rem 1.25rem;">
+    <p style="font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--accent3);font-weight:600;margin-bottom:0.4rem;">TEORIA DO RISCO DO EMPREENDIMENTO</p>
+    <p style="font-size:0.9rem;">Quem exerce atividade econômica assume integralmente os riscos inerentes a ela. A SafeCloud não pode transferir sua responsabilidade aos hackers, pois: (1) ela criou a brecha; (2) ela sabia da vulnerabilidade; (3) ela decidiu não agir. Ataques cibernéticos são riscos <em>previsíveis</em> para empresas de tecnologia, não eventos imprevistos.</p>
+  </div>
+</section>
+
+<hr>
+
+<!-- ── EQUIPE ── -->
+<section id="equipe">
+  <div class="section-label">03 — Colinhas da Equipe</div>
+  <h2>Clique no seu nome para ver sua colinha</h2>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('sg1')">Subgrupo 1<br><span style="font-size:0.62rem;font-weight:400;color:inherit">Consumidor</span></button>
+    <button class="tab" onclick="switchTab('sg2')">Subgrupo 2<br><span style="font-size:0.62rem;font-weight:400;color:inherit">Responsabilidade</span></button>
+  </div>
+
+  <!-- SUBGRUPO 1 -->
+  <div id="sg1" class="tab-content active members-grid">
+
+    <!-- BERNARDO -->
+    <div class="member-card" onclick="toggleCard(this)">
+      <div class="member-header">
+        <div class="member-num">1</div>
+        <div class="member-info">
+          <div class="role">Subgrupo 1 · Abertura</div>
+          <h3>Bernardo</h3>
+        </div>
+        <div class="member-toggle">▾</div>
+      </div>
+      <div class="member-body">
+        <div class="tema">Tema: A Padaria é consumidora? Relação de consumo + vulnerabilidade técnica</div>
+
+        <p style="font-size:0.88rem;margin-bottom:0.75rem;color:var(--muted)">Você abre o debate. Seu papel é estabelecer que existe relação de consumo — sem isso, o CDC não se aplica.</p>
+
+        <div class="speech-box">
+          A Padaria Delícia contratou o sistema ERP da SafeCloud para usar em sua rotina diária — organizar vendas, calcular impostos e gerir dados. Ela não revende esse sistema, ela <em>depende</em> dele para funcionar. Por isso, nos termos dos artigos 2º e 3º do CDC, temos uma clara relação de consumo: a padaria é consumidora e a SafeCloud é fornecedora. Além disso, a padaria não possui conhecimento técnico para avaliar a segurança ou o funcionamento do sistema — ela confia totalmente na empresa. Isso caracteriza sua <strong>vulnerabilidade técnica</strong>, conceito central que o próprio CDC busca proteger.
+        </div>
+
+        <p class="tema">Argumentos-chave</p>
+        <ul class="args-list">
+          <li>A Padaria é <strong>destinatária final</strong> do ERP — não revende, usa para própria operação.</li>
+          <li>É pessoa jurídica, mas o STJ admite que PJs sejam consumidoras pela <strong>Teoria Finalista Mitigada</strong> (REsp 1.195.642).</li>
+          <li>Vulnerabilidade técnica evidente: padaria ≠ empresa de TI. Não tem como auditoria de segurança própria.</li>
+          <li>SafeCloud possui domínio tecnológico muito superior — desequilíbrio clássico fornecedor/consumidor.</li>
+        </ul>
+
+        <div class="law-refs">
+          <span class="law-tag">Art. 2º CDC</span>
+          <span class="law-tag">Art. 3º CDC</span>
+          <span class="law-tag">Art. 4º, I CDC</span>
+          <span class="law-tag">REsp 1.195.642 STJ</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FELIPE -->
+    <div class="member-card" onclick="toggleCard(this)">
+      <div class="member-header">
+        <div class="member-num">2</div>
+        <div class="member-info">
+          <div class="role">Subgrupo 1 · Vício do Serviço</div>
+          <h3>Felipe</h3>
+        </div>
+        <div class="member-toggle">▾</div>
+      </div>
+      <div class="member-body">
+        <div class="tema">Tema: Bug no ICMS = Vício do Serviço · Art. 20 CDC</div>
+
+        <p style="font-size:0.88rem;margin-bottom:0.75rem;color:var(--muted)">Você trata do primeiro problema: o cálculo errado de imposto. Mostre que o serviço não cumpriu sua função e que houve prejuízo real.</p>
+
+        <div class="speech-box">
+          Logo no início, o sistema aplicou alíquota de ICMS inferior à correta — a função principal de um ERP fiscal é justamente garantir precisão tributária. Isso é, textualmente, um <strong>vício do serviço</strong> nos termos do art. 20 do CDC: o serviço tornou-se impróprio ao consumo. A Padaria teve que contratar um contador extra para corrigir manualmente — prejuízo financeiro direto e documentável. Não é mero erro técnico: é falha na entrega do que foi contratado.
+        </div>
+
+        <p class="tema">Distinção crucial: Vício vs. Fato</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin:0.5rem 0 1rem">
+          <div style="background:var(--surface2);border:1px solid var(--border);border-top:2px solid var(--accent);border-radius:6px;padding:0.75rem;font-size:0.82rem">
+            <strong style="display:block;margin-bottom:0.3rem">VÍCIO (Art. 20)</strong>
+            Bug do ICMS<br>
+            <span style="color:var(--muted)">Serviço funciona mal, mas não causa acidente. Obrigação: corrigir ou indenizar custos extras.</span>
+          </div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-top:2px solid var(--accent2);border-radius:6px;padding:0.75rem;font-size:0.82rem">
+            <strong style="display:block;margin-bottom:0.3rem">FATO (Art. 14)</strong>
+            Vazamento de dados<br>
+            <span style="color:var(--muted)">Serviço causa acidente e dano externo. Responsabilidade objetiva. Indenizações muito mais graves.</span>
+          </div>
+        </div>
+
+        <ul class="args-list">
+          <li>45 dias para correção é prazo excessivo — o serviço ficou <strong>impróprio ao consumo</strong> por todo esse período.</li>
+          <li>Prejuízo real e calculável: custo do contador extra.</li>
+          <li>A SafeCloud admitiu a falha — elimina qualquer argumento de negação.</li>
+          <li>Mesmo sendo "vício sanável", o prazo prolongado agrava a responsabilidade.</li>
+        </ul>
+
+        <div class="law-refs">
+          <span class="law-tag">Art. 20 CDC</span>
+          <span class="law-tag">Art. 14 CDC</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- BRUNA -->
+    <div class="member-card" onclick="toggleCard(this)">
+      <div class="member-header">
+        <div class="member-num">3</div>
+        <div class="member-info">
+          <div class="role">Subgrupo 1 · Fato do Serviço</div>
+          <h3>Bruna</h3>
+        </div>
+        <div class="member-toggle">▾</div>
+      </div>
+      <div class="member-body">
+        <div class="tema">Tema: Vazamento = Fato do Serviço · Responsabilidade Objetiva · Art. 14 CDC</div>
+
+        <p style="font-size:0.88rem;margin-bottom:0.75rem;color:var(--muted)">O vazamento é muito mais grave que o bug. Você mostra por que a responsabilidade é objetiva — independente de culpa.</p>
+
+        <div class="speech-box">
+          O vazamento de dados bancários e CPFs não é um simples erro técnico — é um <strong>fato do serviço</strong>, um acidente de consumo. O art. 14 do CDC é claro: o fornecedor responde pelos danos independentemente de culpa. Não importa se houve intenção ou não. O que importa é: existiu dano? Sim. Veio da falha no serviço? Sim. O nexo causal é direto. A brecha foi aberta pela própria atualização da SafeCloud. Os dados expostos são de clientes reais, com risco concreto de fraudes e prejuízos financeiros — violação grave da privacidade.
+        </div>
+
+        <ul class="args-list">
+          <li><strong>Responsabilidade objetiva</strong>: não precisa provar dolo ou negligência — basta dano + nexo causal.</li>
+          <li>A LGPD (Art. 46) exige medidas técnicas de segurança. A empresa não as adotou adequadamente.</li>
+          <li>CPFs e dados bancários são dados <strong>sensíveis</strong> — proteção reforçada pela LGPD.</li>
+          <li>Dano coletivo: não afetou só a Padaria, mas todos os clientes cadastrados.</li>
+          <li>Nexo causal claro: atualização defeituosa → brecha → ataque → vazamento.</li>
+        </ul>
+
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:0.75rem;margin:0.75rem 0;font-size:0.85rem">
+          <strong style="color:var(--accent3)">O que provar:</strong> (1) O dano ocorreu. ✓ (2) Houve defeito no serviço. ✓ (3) Nexo entre defeito e dano. ✓<br>
+          <strong style="color:var(--accent2)">O que a empresa tentará:</strong> Quebrar o nexo alegando culpa de terceiro (hackers). Você destrói isso: a brecha já existia.
+        </div>
+
+        <div class="law-refs">
+          <span class="law-tag">Art. 14 CDC</span>
+          <span class="law-tag">LGPD Art. 46</span>
+          <span class="law-tag">LGPD Art. 48</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAVI -->
+    <div class="member-card" onclick="toggleCard(this)">
+      <div class="member-header">
+        <div class="member-num">4</div>
+        <div class="member-info">
+          <div class="role">Subgrupo 1 · Omissão e Publicidade</div>
+          <h3>Davi</h3>
+        </div>
+        <div class="member-toggle">▾</div>
+      </div>
+      <div class="member-body">
+        <div class="tema">Tema: Omissão informacional + Publicidade Enganosa · Arts. 6º III, 37, 67 CDC</div>
+
+        <p style="font-size:0.88rem;margin-bottom:0.75rem;color:var(--muted)">Você foca no comportamento da empresa: ela sabia do risco e escondeu. E mentiu na publicidade. Esse é o momento mais "dramático" do debate.</p>
+
+        <div class="speech-box">
+          A SafeCloud não apenas falhou tecnicamente — ela falhou moralmente. Quando a diretoria descobriu a vulnerabilidade, teve uma escolha: proteger os clientes ou proteger o faturamento. Escolheu o faturamento. Isso viola diretamente o art. 6º, III do CDC, que garante ao consumidor o direito à <strong>informação clara e transparente</strong> sobre riscos. Além disso, enquanto os dados estavam expostos, o site prometia "Segurança Nível Bancário: Blindagem Total". Isso é <strong>publicidade enganosa</strong>, vedada pelo art. 37 do CDC — e crime pelo art. 67.
+        </div>
+
+        <ul class="args-list">
+          <li>A empresa <strong>sabia da brecha</strong> antes do ataque e escolheu não avisar — omissão dolosa.</li>
+          <li>Art. 6º, III: direito à informação é inegociável. O consumidor precisa saber para decidir.</li>
+          <li>LGPD Art. 48: existe <strong>dever legal</strong> de comunicar incidentes de segurança à autoridade e aos afetados.</li>
+          <li>"Blindagem Total" é promessa objetiva, não mero slogan — especialmente em serviço que lida com dados bancários.</li>
+          <li>A empresa não usava criptografia de ponta: contradição direta com a promessa publicitária.</li>
+        </ul>
+
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:0.75rem;margin:0.75rem 0;font-size:0.85rem">
+          <strong style="color:var(--accent)">Se defesa disser "era só marketing":</strong> Publicidade de serviço financeiro/tecnológico com dados bancários não pode criar falsa sensação de segurança. "Puffing" não se aplica quando a promessa é específica ("nível bancário") e o consumidor tomou decisão baseado nela.
+        </div>
+
+        <div class="law-refs">
+          <span class="law-tag">Art. 6º III CDC</span>
+          <span class="law-tag">Art. 37 CDC</span>
+          <span class="law-tag">Art. 67 CDC</span>
+          <span class="law-tag">LGPD Art. 48</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- AMANDA -->
+    <div class="member-card" onclick="toggleCard(this)">
+      <div class="member-header">
+        <div class="member-num">5</div>
+        <div class="member-info">
+          <div class="role">Subgrupo 1 · Teoria do Risco + Pedidos</div>
+          <h3>Amanda</h3>
+        </div>
+        <div class="member-toggle">▾</div>
+      </div>
+      <div class="member-body">
+        <div class="tema">Tema: Teoria do Risco · Invalidar "culpa dos hackers" · Pedidos finais</div>
+
+        <p style="font-size:0.88rem;margin-bottom:0.75rem;color:var(--muted)">Você fecha o subgrupo 1. Invalida o maior argumento da defesa e faz os pedidos formais do MP.</p>
+
+        <div class="speech-box">
+          A SafeCloud vai tentar dizer que foi culpa dos hackers. Não aceitem esse argumento. Pela <strong>Teoria do Risco do Empreendimento</strong>, quem exerce atividade econômica assume os riscos inerentes a ela. Ataques cibernéticos são riscos previsíveis para uma empresa de tecnologia. E, mais importante: a brecha foi criada pela própria empresa, que sabia dela e nada fez. Os hackers não criaram o problema — apenas exploraram o que a SafeCloud deixou exposto.
+        </div>
+
+        <p class="tema">Por que "culpa de terceiro" não funciona aqui</p>
+        <ul class="args-list">
+          <li>O art. 14, §3º CDC prevê exclusão por culpa de terceiro — mas a brecha foi <strong>criada pela própria SafeCloud</strong>.</li>
+          <li>A empresa já sabia da vulnerabilidade antes do ataque → não há imprevisibilidade.</li>
+          <li>Risco cibernético é inerente a empresas SaaS — deve ser precificado e gerido pela fornecedora.</li>
+          <li>Omitir a falha foi decisão estratégica da diretoria — agrava ainda mais a responsabilidade.</li>
+        </ul>
+
+        <p class="tema">Pedidos do MP</p>
+        <ul class="args-list">
+          <li>Reconhecimento da responsabilidade objetiva da SafeCloud pelos fatos.</li>
+          <li>Indenização pelos danos materiais da Padaria (custos com contador + demais prejuízos).</li>
+          <li>Responsabilização pelos danos coletivos aos consumidores afetados pelo vazamento.</li>
+          <li>Obrigação de implementar medidas eficazes de segurança (LGPD Art. 46).</li>
+          <li>Aplicação das penalidades penais dos arts. 62 e 67 do CDC à diretoria.</li>
+        </ul>
+
+        <div class="speech-box" style="border-color:var(--accent2)">
+          <em>Frase de encerramento:</em> "A SafeCloud vendeu confiança, prometeu segurança e entregou exposição, prejuízo e vulnerabilidade. Não podemos aceitar que empresas de tecnologia obtenham lucro à custa da privacidade e da segurança dos consumidores."
+        </div>
+
+        <div class="law-refs">
+          <span class="law-tag">Art. 14 §3º CDC</span>
+          <span class="law-tag">Teoria do Risco</span>
+          <span class="law-tag">Art. 62 CDC</span>
+          <span class="law-tag">Art. 67 CDC</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end sg1 -->
+
+  <!-- SUBGRUPO 2 -->
+  <div id="sg2" class="tab-content members-grid">
+
+    <!-- VITOR EMANUEL -->
+    <div class="member-card" onclick="toggleCard(this)">
+      <div class="member-header">
+        <div class="member-num">1</div>
+        <div class="member-info">
+          <div class="role">Subgrupo 2 · Introdução</div>
+          <h3>Vitor Emanuel</h3>
+        </div>
+        <div class="member-toggle">▾</div>
+      </div>
+      <div class="member-body">
+        <div class="tema">Tema: Relação de consumo + Domínio tecnológico superior da SafeCloud</div>
+
+        <div class="speech-box">
+          Mesmo sendo pessoa jurídica, a Padaria Delícia é consumidora perante a SafeCloud, pois utiliza o sistema como destinatária final. Além disso, existe evidente vulnerabilidade técnica: a empresa cliente não possui o mesmo conhecimento em tecnologia, segurança digital e integração fiscal que a fornecedora. Esse desequilíbrio é justamente o que o CDC foi criado para corrigir.
+        </div>
+
+        <ul class="args-list">
+          <li>Padaria = destinatária final do ERP (não revende o software).</li>
+          <li>Vulnerabilidade técnica: sem expertise em segurança digital, integração fiscal ou auditoria de sistema.</li>
+          <li>SafeCloud tem domínio tecnológico muito superior — assimetria informacional clássica.</li>
+          <li>STJ REsp 1.195.642: Teoria Finalista Mitigada admite PJ como consumidora quando vulnerável.</li>
+        </ul>
+
+        <div class="law-refs">
+          <span class="law-tag">Art. 2º CDC</span>
+          <span class="law-tag">Art. 4º, I CDC</span>
+          <span class="law-tag">REsp 1.195.642</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- LARISSA SIEGEL -->
+    <div class="member-card" onclick="toggleCard(this)">
+      <div class="member-header">
+        <div class="member-num">2</div>
+        <div class="member-info">
+          <div class="role">Subgrupo 2 · Bug ICMS</div>
+          <h3>Larissa Siegel</h3>
+        </div>
+        <div class="member-toggle">▾</div>
+      </div>
+      <div class="member-body">
+        <div class="tema">Tema: A demora de 45 dias tornou o serviço impróprio ao consumo · Art. 20 CDC</div>
+
+        <div class="speech-box">
+          O defeito no cálculo do ICMS configura vício do serviço, pois comprometeu diretamente a finalidade do sistema ERP. A demora de <strong>45 dias</strong> para correção agravou os danos sofridos pela Padaria, que precisou contratar suporte contábil adicional. Durante todo esse período, o serviço era impróprio ao consumo — e a empresa sabia disso.
+        </div>
+
+        <ul class="args-list">
+          <li>45 dias é prazo longo para sistema que lida com obrigações tributárias diárias.</li>
+          <li>Um ERP fiscal que calcula imposto errado deixou de ser adequado à sua finalidade.</li>
+          <li>Padaria teve custos extras documentáveis: contador adicional.</li>
+          <li>A defesa pode dizer "sistemas fiscais são complexos" — resposta: a complexidade não desonera a empresa dos danos gerados enquanto o serviço estava defeituoso.</li>
+        </ul>
+
+        <div class="law-refs">
+          <span class="law-tag">Art. 20 CDC</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- LUCAS SCHUTZ -->
+    <div class="member-card" onclick="toggleCard(this)">
+      <div class="member-header">
+        <div class="member-num">3</div>
+        <div class="member-info">
+          <div class="role">Subgrupo 2 · Vazamento de Dados</div>
+          <h3>Lucas Schutz</h3>
+        </div>
+        <div class="member-toggle">▾</div>
+      </div>
+      <div class="member-body">
+        <div class="tema">Tema: Fato do serviço · Privacidade · Responsabilidade automática · Art. 14 CDC</div>
+
+        <div class="speech-box">
+          O vazamento de dados bancários e CPFs caracteriza fato do serviço — também chamado de acidente de consumo. O CDC estabelece responsabilidade objetiva: não é necessário provar culpa da empresa. Basta comprovar o dano e a falha no serviço. Aqui ambos estão evidentes. Dados sensíveis de consumidores reais foram expostos, causando risco concreto de fraudes e violação de privacidade.
+        </div>
+
+        <ul class="args-list">
+          <li>Dados bancários e CPFs = dados pessoais sensíveis com proteção reforçada pela LGPD.</li>
+          <li>Responsabilidade objetiva: basta dano + falha no serviço. Culpa não é requisito.</li>
+          <li>Dano coletivo: afeta todos os clientes da Padaria — não apenas a empresa contratante.</li>
+          <li>LGPD Art. 46: a SafeCloud tinha obrigação legal de adotar medidas técnicas adequadas.</li>
+          <li>Nexo: atualização criou brecha → brecha foi explorada → dados foram expostos. Cadeia direta.</li>
+        </ul>
+
+        <div class="law-refs">
+          <span class="law-tag">Art. 14 CDC</span>
+          <span class="law-tag">LGPD Art. 46</span>
+          <span class="law-tag">LGPD Art. 48</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIAGO DUARTE -->
+    <div class="member-card" onclick="toggleCard(this)">
+      <div class="member-header">
+        <div class="member-num">4</div>
+        <div class="member-info">
+          <div class="role">Subgrupo 2 · Teoria do Risco</div>
+          <h3>Tiago Duarte</h3>
+        </div>
+        <div class="member-toggle">▾</div>
+      </div>
+      <div class="member-body">
+        <div class="tema">Tema: SafeCloud assumiu o risco · Ocultou a falha · Teoria do Risco do Empreendimento</div>
+
+        <div class="speech-box">
+          A SafeCloud não pode transferir sua responsabilidade aos hackers. A própria empresa reconheceu a existência da falha de segurança <em>antes</em> do ataque e decidiu ocultá-la dos consumidores. Pela teoria do risco do empreendimento, quem explora atividade econômica deve responder pelos riscos inerentes à sua operação. A empresa assumiu o risco quando: (1) lançou atualização com brecha; (2) soube da brecha; (3) escolheu não agir.
+        </div>
+
+        <ul class="args-list">
+          <li>Teoria do Risco: atividade econômica gera risco → empresa assume integralmente.</li>
+          <li>Cyberataques são riscos <strong>previsíveis</strong> para empresas SaaS — não são força maior.</li>
+          <li>A empresa sabia da brecha antes do ataque: elimina o argumento de imprevisibilidade.</li>
+          <li>Omissão deliberada é pior que negligência: há elemento de dolo na decisão da diretoria.</li>
+          <li>"Fato de terceiro" (Art. 14, §3º) não se aplica quando a brecha foi criada e mantida pela própria empresa.</li>
+        </ul>
+
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:0.75rem;margin:0.75rem 0;font-size:0.85rem">
+          <strong style="color:var(--accent)">Defesa:</strong> "Nenhum sistema é 100% invulnerável, grandes empresas também sofrem ataques."<br>
+          <strong style="color:var(--accent3)">MP:</strong> "Grandes empresas adotam protocolos de resposta e notificam imediatamente. A SafeCloud fez o oposto: soube da brecha, ficou em silêncio e continuou operando normalmente."
+        </div>
+
+        <div class="law-refs">
+          <span class="law-tag">Teoria do Risco</span>
+          <span class="law-tag">Art. 14 §3º CDC</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- LAURA MELLO -->
+    <div class="member-card" onclick="toggleCard(this)">
+      <div class="member-header">
+        <div class="member-num">5</div>
+        <div class="member-info">
+          <div class="role">Subgrupo 2 · Esfera Penal + Conclusão</div>
+          <h3>Laura Mello</h3>
+        </div>
+        <div class="member-toggle">▾</div>
+      </div>
+      <div class="member-body">
+        <div class="tema">Tema: Crime de publicidade enganosa + Omissão dolosa da diretoria · Arts. 62 e 67 CDC</div>
+
+        <div class="speech-box">
+          Ao anunciar "Blindagem Total contra Invasões", a SafeCloud criou falsa sensação de segurança nos consumidores. Isso não é simples exagero publicitário — é publicidade enganosa do art. 37 do CDC, que o art. 67 tipifica como crime. Além disso, a diretoria decidiu conscientemente omitir a vulnerabilidade para evitar cancelamentos, priorizando interesses econômicos sobre a segurança dos clientes. Isso configura o crime do art. 62: colocar no mercado serviço impróprio ao consumo sabendo de sua inadequação.
+        </div>
+
+        <ul class="args-list">
+          <li>Art. 67 CDC: <strong>publicidade enganosa é crime</strong>. "Blindagem Total" vs. proteção básica de baixo custo = contradição objetiva.</li>
+          <li>Não é "puffing" (exagero aceitável) quando a promessa é específica: "nível bancário" tem significado técnico preciso.</li>
+          <li>Art. 62 CDC: crime de omissão — a diretoria sabia que o serviço estava impróprio e continuou operando.</li>
+          <li>Há elemento de dolo: a decisão de ocultar foi consciente e estratégica (ata de reunião, emails, etc.).</li>
+          <li>LGPD Art. 48: além do crime consumerista, há infração administrativa por não comunicar o incidente.</li>
+        </ul>
+
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:0.75rem;margin:0.75rem 0;font-size:0.85rem">
+          <strong style="color:var(--accent)">Se a defesa disser "era só slogan":</strong> Serviços que lidam com dados bancários têm responsabilidade maior sobre sua publicidade. O consumidor tomou decisão de contratar baseado nessa promessa. O STJ entende que promessas específicas em publicidade vinculam o fornecedor (teoria do venire contra factum proprium).
+        </div>
+
+        <div class="speech-box" style="border-color:var(--accent2)">
+          <em>Conclusão do subgrupo 2:</em> "A SafeCloud vendeu confiança, prometeu segurança e entregou exposição, prejuízo e vulnerabilidade. O Ministério Público requer a responsabilização civil, administrativa e penal de todos os envolvidos."
+        </div>
+
+        <div class="law-refs">
+          <span class="law-tag">Art. 37 CDC</span>
+          <span class="law-tag">Art. 62 CDC</span>
+          <span class="law-tag">Art. 67 CDC</span>
+          <span class="law-tag">LGPD Art. 48</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end sg2 -->
+</section>
+
+<hr>
+
+<!-- ── COUNTER-ARGS ── -->
+<section id="contra">
+  <div class="section-label">04 — Contra-argumentação</div>
+  <h2>O que a defesa vai dizer — e como responder</h2>
+
+  <div class="counter-grid">
+    <div class="counter-item">
+      <div class="counter-def">🛡 "O ataque foi culpa dos hackers, não nossa."</div>
+      <div class="counter-mp">A brecha foi criada pela própria atualização da SafeCloud. A empresa descobriu a vulnerabilidade <em>antes</em> do ataque e nada fez. Atacantes só exploram o que já existe. A Teoria do Risco impede essa transferência de responsabilidade.</div>
+    </div>
+    <div class="counter-item">
+      <div class="counter-def">🛡 "'Segurança nível bancário' era só marketing."</div>
+      <div class="counter-mp">Publicidade de serviço que lida com dados bancários não pode criar falsa sensação de proteção. A promessa foi específica ("nível bancário" tem significado técnico), o consumidor contratou baseado nela. Isso é publicidade enganosa — e crime (Art. 67 CDC).</div>
+    </div>
+    <div class="counter-item">
+      <div class="counter-def">🛡 "45 dias era necessário para garantir qualidade do patch."</div>
+      <div class="counter-mp">Durante esses 45 dias, a Padaria operou com sistema defeituoso e teve custos extras. A complexidade técnica não isenta a empresa — ela deveria ter previsto e testado melhor. O prazo excessivo é parte do dano, não justificativa para ele.</div>
+    </div>
+    <div class="counter-item">
+      <div class="counter-def">🛡 "Não ocultamos por má-fé, foi para evitar pânico."</div>
+      <div class="counter-mp">O resultado foi o mesmo: consumidores ficaram expostos sem poder se proteger. A LGPD é explícita: há <em>dever legal</em> de notificar incidentes (Art. 48). Priorizar faturamento sobre segurança não é gestão de crise — é omissão dolosa.</div>
+    </div>
+    <div class="counter-item">
+      <div class="counter-def">🛡 "Nenhum sistema é 100% seguro — grandes empresas também sofrem ataques."</div>
+      <div class="counter-mp">Grandes empresas adotam protocolos de resposta imediata e notificam afetados. A SafeCloud fez o oposto. Além disso, a empresa prometia justamente "blindagem total" — assumiu publicamente um padrão que não cumpria.</div>
+    </div>
+    <div class="counter-item">
+      <div class="counter-def">🛡 "A Padaria também deveria ter medidas próprias de segurança."</div>
+      <div class="counter-mp">A responsabilidade objetiva do Art. 14 não admite culpa concorrente do consumidor por falta de expertise técnica. A Padaria não é empresa de TI — contratou exatamente para não precisar ter esse conhecimento. A vulnerabilidade técnica é reconhecida pelo CDC.</div>
+    </div>
+    <div class="counter-item">
+      <div class="counter-def">🛡 "A Padaria é pessoa jurídica, não é consumidora."</div>
+      <div class="counter-mp">O STJ já pacificou: pela Teoria Finalista Mitigada (REsp 1.195.642), uma PJ é consumidora quando vulnerável e usa o produto/serviço como destinatária final — exatamente o caso da Padaria, que não tem expertise tecnológica e não revende o ERP.</div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- ── PERGUNTAS ── -->
+<section id="perguntas">
+  <div class="section-label">05 — Perguntas para Pressionar a Defesa</div>
+  <h2>Use estas perguntas no debate</h2>
+
+  <div class="q-grid">
+    <div class="q-item">Se a empresa sabia da vulnerabilidade, por que não informou imediatamente os clientes?</div>
+    <div class="q-item">Como um sistema com "blindagem total" sofreu invasão tão facilmente, se a proteção era tão robusta?</div>
+    <div class="q-item">Qual é o prazo razoável para corrigir um bug que gera irregularidade fiscal diária — e por que 45 dias foi aceitável?</div>
+    <div class="q-item">A busca pelo lucro (evitar cancelamentos) pode justificar a omissão de um risco concreto de segurança?</div>
+    <div class="q-item">Se o serviço era seguro como prometido, por que os dados vazaram?</div>
+    <div class="q-item">Que medidas técnicas concretas a SafeCloud adotou para se adequar à LGPD antes de lançar a atualização?</div>
+    <div class="q-item">Por que a empresa não comunicou o incidente à ANPD (Autoridade Nacional de Proteção de Dados) conforme exige a LGPD?</div>
+    <div class="q-item">Como a empresa pretende compensar os consumidores finais que tiveram CPFs e dados bancários expostos?</div>
+  </div>
+</section>
+
+<hr>
+
+<!-- ── QUICK REF ── -->
+<section>
+  <div class="section-label">06 — Mini Cola Rápida</div>
+  <h2>Referência em 30 segundos</h2>
+
+  <div style="overflow-x:auto">
+    <table style="width:100%;border-collapse:collapse;font-size:0.85rem">
+      <thead>
+        <tr style="background:var(--surface2);border-bottom:2px solid var(--accent)">
+          <th style="text-align:left;padding:0.7rem 0.9rem;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--accent)">SITUAÇÃO</th>
+          <th style="text-align:left;padding:0.7rem 0.9rem;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--accent)">LEI</th>
+          <th style="text-align:left;padding:0.7rem 0.9rem;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--accent)">TIPO</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--border)">
+          <td style="padding:0.65rem 0.9rem">Padaria é consumidora (PJ)</td>
+          <td style="padding:0.65rem 0.9rem"><span class="law-tag">Art. 2º CDC</span> <span class="law-tag">REsp 1.195.642</span></td>
+          <td style="padding:0.65rem 0.9rem"><span class="badge yellow">Civil</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border)">
+          <td style="padding:0.65rem 0.9rem">Bug ICMS / 45 dias sem correção</td>
+          <td style="padding:0.65rem 0.9rem"><span class="law-tag">Art. 20 CDC</span></td>
+          <td style="padding:0.65rem 0.9rem"><span class="badge yellow">Vício do Serviço</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border)">
+          <td style="padding:0.65rem 0.9rem">Vazamento de dados / acidente</td>
+          <td style="padding:0.65rem 0.9rem"><span class="law-tag">Art. 14 CDC</span></td>
+          <td style="padding:0.65rem 0.9rem"><span class="badge red">Fato do Serviço</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border)">
+          <td style="padding:0.65rem 0.9rem">Ocultação da vulnerabilidade</td>
+          <td style="padding:0.65rem 0.9rem"><span class="law-tag">Art. 6º III CDC</span> <span class="law-tag">LGPD 48</span></td>
+          <td style="padding:0.65rem 0.9rem"><span class="badge red">Omissão Dolosa</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border)">
+          <td style="padding:0.65rem 0.9rem">"Blindagem Total" falsa</td>
+          <td style="padding:0.65rem 0.9rem"><span class="law-tag">Art. 37 CDC</span></td>
+          <td style="padding:0.65rem 0.9rem"><span class="badge yellow">Civil</span></td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border)">
+          <td style="padding:0.65rem 0.9rem">Crime de publicidade enganosa</td>
+          <td style="padding:0.65rem 0.9rem"><span class="law-tag">Art. 67 CDC</span></td>
+          <td style="padding:0.65rem 0.9rem"><span class="badge red">Penal</span></td>
+        </tr>
+        <tr>
+          <td style="padding:0.65rem 0.9rem">Serviço impróprio lançado conscientemente</td>
+          <td style="padding:0.65rem 0.9rem"><span class="law-tag">Art. 62 CDC</span></td>
+          <td style="padding:0.65rem 0.9rem"><span class="badge red">Penal</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  Ministério Público · SafeCloud Tech · Debate Jurídico · ADS 3ª Fase · 2024<br>
+  Base: CDC (L. 8.078/1990) · LGPD (L. 13.709/2018) · STJ REsp 1.195.642
+</footer>
+
+<script>
+  function toggleCard(card) {
+    card.classList.toggle('open');
+  }
+
+  function switchTab(id) {
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.target.closest('.tab').classList.add('active');
+  }
+</script>
+</body>
+</html>
